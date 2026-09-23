@@ -1,0 +1,88 @@
+{
+  "measures": [
+    {
+      "id": "priority_bus_lanes",
+      "name": "Priority bus lanes",
+      "category": "transport",
+      "scope": "city",
+      "cost": 22,
+      "implementation_lag_months": 6,
+      "effects": {"mobility": 6},
+      "conflicts": ["car_lane_expansion"]
+    },
+    {
+      "id": "district_clinic",
+      "name": "District clinic upgrade",
+      "category": "health",
+      "scope": "district",
+      "cost": 18,
+      "implementation_lag_months": 9,
+      "effects": {"healthcare": 8},
+      "conflicts": []
+    },
+    {
+      "id": "neighborhood_park",
+      "name": "Neighborhood park",
+      "category": "environment",
+      "scope": "district",
+      "cost": 14,
+      "implementation_lag_months": 4,
+      "effects": {"environment": 7},
+      "conflicts": []
+    },
+    {
+      "id": "school_modernization",
+      "name": "School modernization",
+      "category": "education",
+      "scope": "district",
+      "cost": 20,
+      "implementation_lag_months": 8,
+      "effects": {"education": 6},
+      "conflicts": []
+    },
+    {
+      "id": "smart_street_lighting",
+      "name": "Smart street lighting",
+      "category": "safety",
+      "scope": "city",
+      "cost": 24,
+      "implementation_lag_months": 3,
+      "effects": {"safety": 9.7},
+      "conflicts": []
+    },
+    {
+      "id": "bike_network",
+      "name": "Protected bike network",
+      "category": "transport",
+      "scope": "city",
+      "cost": 16,
+      "implementation_lag_months": 5,
+      "effects": {"mobility": 3, "environment": 2},
+      "conflicts": ["car_lane_expansion"],
+      "synergy": {
+        "requires": ["neighborhood_park"],
+        "effects": {"environment": 0.5}
+      }
+    },
+    {
+      "id": "car_lane_expansion",
+      "name": "Car lane expansion",
+      "category": "transport",
+      "scope": "city",
+      "cost": 28,
+      "implementation_lag_months": 10,
+      "effects": {"mobility": 4, "environment": -3},
+      "conflicts": ["priority_bus_lanes", "bike_network"]
+    },
+    {
+      "id": "mobile_health_units",
+      "name": "Mobile health units",
+      "category": "health",
+      "scope": "city",
+      "cost": 15,
+      "implementation_lag_months": 2,
+      "effects": {"healthcare": 3},
+      "conflicts": []
+    }
+  ]
+}
