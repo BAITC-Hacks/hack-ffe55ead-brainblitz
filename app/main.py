@@ -14,7 +14,8 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.models import ConfigResponse, ErrorResponse, SimulationRequest, SimulationResult
+from app.ai import AISettings, OpenAIAnalyst, create_ai_client
+from app.models import AnalysisResult, ConfigResponse, ErrorResponse, SimulationRequest, SimulationResult
 from app.simulation import simulate, summarize
 from app.validator import ScenarioValidationError, normalize_request_error
 
@@ -144,7 +145,15 @@ def create_app(data_dir: Path | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(application: FastAPI):
         application.state.config = load_config(source_dir)
-        yield
+        settings = AISettings.from_env()
+        client = create_ai_client(settings) if settings.unavailable_reason is None else None
+        application.state.ai_client = client
+        try:
+            application.state.analyst = OpenAIAnalyst(settings, client)
+            yield
+        finally:
+            if client is not None:
+                await client.aclose()
 
     application = FastAPI(title="Аким на 5 часов", version=CONTRACT_VERSION, lifespan=lifespan)
 
@@ -180,6 +189,14 @@ def create_app(data_dir: Path | None = None) -> FastAPI:
     )
     def run_simulation(payload: SimulationRequest, request: Request):
         return simulate(payload.selections, request.app.state.config)
+
+    @application.post(
+        "/api/analyze", response_model=AnalysisResult,
+        responses={422: {"model": ErrorResponse}},
+    )
+    async def analyze_simulation(payload: SimulationRequest, request: Request):
+        simulation = simulate(payload.selections, request.app.state.config)
+        return await request.app.state.analyst.analyze(simulation, request.app.state.config)
 
     # The frontend is maintained separately. Serve it when its files exist;
     # the API can start and be tested before that folder has been added.

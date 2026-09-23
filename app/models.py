@@ -16,6 +16,7 @@ from pydantic import (
     FiniteFloat,
     StrictInt,
     StrictStr,
+    model_validator,
 )
 
 
@@ -173,6 +174,69 @@ class SimulationResult(Versions):
     applied_synergies: list[AppliedSynergy]
     explanation: StrictStr
     explanation_source: Literal["rules"]
+
+
+def _nonblank(value: str) -> str:
+    if not value.strip():
+        raise ValueError("Text must contain non-whitespace characters.")
+    return value
+
+
+ShortAnalysisText = Annotated[
+    StrictStr, Field(min_length=1, max_length=300), AfterValidator(_nonblank)
+]
+
+
+class EvidenceStatement(ContractModel):
+    text: Annotated[
+        StrictStr, Field(min_length=1, max_length=600), AfterValidator(_nonblank)
+    ]
+    evidence_paths: Annotated[list[StrictStr], Field(min_length=1, max_length=4)]
+
+
+class Analysis(ContractModel):
+    summary: EvidenceStatement
+    strengths: Annotated[list[EvidenceStatement], Field(max_length=2)]
+    risks: Annotated[list[EvidenceStatement], Field(max_length=2)]
+    tradeoff: EvidenceStatement
+    reflection_question: ShortAnalysisText
+    limitations: Annotated[list[ShortAnalysisText], Field(min_length=1, max_length=2)]
+
+    def statements(self) -> list[EvidenceStatement]:
+        return [self.summary, *self.strengths, *self.risks, self.tradeoff]
+
+    @model_validator(mode="after")
+    def check_word_count(self) -> "Analysis":
+        texts = [item.text for item in self.statements()]
+        texts.extend([self.reflection_question, *self.limitations])
+        if sum(len(text.split()) for text in texts) > 180:
+            raise ValueError("Analysis must not exceed 180 words.")
+        return self
+
+
+UnavailableReason = Literal[
+    "disabled", "not_configured", "timeout", "rate_limited",
+    "provider_error", "invalid_response", "refused",
+]
+
+
+class AnalysisResult(Versions):
+    selections: Annotated[list[Selection], Field(min_length=5, max_length=5)]
+    baseline_score: FiniteFloat
+    final_score: FiniteFloat
+    status: Literal["ok", "unavailable"]
+    analysis: Analysis | None
+    unavailable_reason: UnavailableReason | None
+    message: StrictStr
+
+    @model_validator(mode="after")
+    def check_status(self) -> "AnalysisResult":
+        if self.status == "ok":
+            if self.analysis is None or self.unavailable_reason is not None or self.message != "":
+                raise ValueError("Successful analysis requires data and no failure message.")
+        elif self.analysis is not None or self.unavailable_reason is None or not self.message.strip():
+            raise ValueError("Unavailable analysis requires a reason and a message, without data.")
+        return self
 
 
 ErrorCode = Literal[

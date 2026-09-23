@@ -184,8 +184,8 @@ def test_second_local_conflict(client):
     assert client.post("/api/simulate", json=payload).status_code == 200
 
 
-@pytest.mark.parametrize("method,path", [("get", "/config"), ("post", "/simulate"), ("post", "/api/analyze")])
-def test_unimplemented_paths_do_not_exist(client, method, path):
+@pytest.mark.parametrize("method,path", [("get", "/config"), ("post", "/simulate")])
+def test_legacy_paths_do_not_exist(client, method, path):
     assert getattr(client, method)(path).status_code == 404
 
 
