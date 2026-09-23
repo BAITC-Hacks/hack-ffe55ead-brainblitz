@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Аким на 5 часов — учебный симулятор</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#decisions">К выбору решений</a>
+  <header class="topbar"><a class="brand" href="/static/index.html">А<span>5</span></a><span>Лаборатория городских решений</span><a id="mode-link" href="?demo=1">Открыть деморежим</a></header>
+  <main>
+    <section class="hero" aria-labelledby="title">
+      <div><p class="eyebrow">АСТАНА · УЧЕБНЫЙ ЭКСПЕРИМЕНТ</p><h1 id="title">Аким на 5 часов<span>Пять решений. Один город.</span></h1><p class="intro">Распределите бюджет и исследуйте компромисс: средний результат города или помощь району, которому сложнее всего?</p><p class="disclaimer">Синтетические данные. Стоимости и эффекты условные. Score — учебный индекс, не официальный показатель и не прогноз.</p></div>
+      <aside class="hero-note"><span>Ваш ресурс</span><strong id="budget-limit">—</strong><span>условных единиц</span><hr><p id="horizon">Горизонт последствий загружается…</p></aside>
+    </section>
+    <div id="mode-notice" class="notice" hidden></div>
+    <div id="config-status" role="status" aria-live="polite">Загружаем районы и каталог мероприятий…</div>
+    <button id="retry-config" type="button" hidden>Повторить загрузку</button>
+    <div id="workspace" hidden>
+      <section class="panel" aria-labelledby="baseline-heading">
+        <div class="section-head"><div><p class="eyebrow">01 / ОТПРАВНАЯ ТОЧКА</p><h2 id="baseline-heading">Пять районов, разные потребности</h2></div><div class="baseline-score">Исходный Score <strong id="baseline-score">—</strong></div></div>
+        <p class="muted">Все показатели от 0 до 100: больше — лучше. Значения ниже 40 отмечены как критические.</p>
+        <div id="baseline-table" class="table-scroll" tabindex="0" role="region" aria-label="Исходные показатели районов"></div>
+        <details class="legend"><summary>Что означают показатели?</summary><dl id="indicator-legend"></dl></details>
+      </section>
+      <section id="decisions" aria-labelledby="decisions-heading">
+        <div class="section-head"><div><p class="eyebrow">02 / ВАШИ РЕШЕНИЯ</p><h2 id="decisions-heading">Распределите приоритеты</h2><p class="muted">По одному мероприятию на каждое направление. Для локальной меры выберите район.</p></div><button id="load-example" type="button" class="secondary">Загрузить пример</button></div>
+        <form id="decision-form" novalidate>
+          <div id="decision-cards" class="decision-grid"></div>
+          <div class="budget-bar"><div><span>Стоимость</span><strong id="total-cost">0</strong></div><div><span>Остаток</span><strong id="remaining-budget">—</strong></div><p id="selection-progress" role="status" aria-live="polite"></p><button id="simulate" type="submit">Рассчитать последствия <span aria-hidden="true">↗</span></button></div>
+          <p class="muted small">Предварительная оценка бюджета. Допустимость набора и итоговые числа проверяет сервер.</p>
+          <p id="form-message" role="alert"></p>
+        </form>
+      </section>
+      <section class="panel results" aria-labelledby="results-heading">
+        <p class="eyebrow">03 / ПОСЛЕДСТВИЯ</p><h2 id="results-heading">Что изменится в городе?</h2>
+        <p id="simulation-status" role="status" aria-live="polite">Выберите решения и запустите расчёт.</p>
+        <div id="result-content" hidden></div>
+      </section>
+      <section class="panel ai-panel" aria-labelledby="ai-heading"><div class="section-head"><div><p class="eyebrow">04 / ОСМЫСЛЕНИЕ</p><h2 id="ai-heading">Разбор вашего решения</h2></div><span class="chip">AI-аналитик</span></div><p id="ai-status" role="status" aria-live="polite">Разбор появится после числового результата.</p><div id="ai-content"></div></section>
+    </div>
+    <footer>Учитесь объяснять последствия, а не только повышать Score. <span id="versions"></span></footer>
+  </main>
+</body>
+</html>

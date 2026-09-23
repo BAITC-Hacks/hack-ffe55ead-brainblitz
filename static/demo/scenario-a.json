@@ -1,0 +1,24 @@
+{
+  "selections": [
+    {
+      "measure_id": "M1",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M4",
+      "district_id": "saryarka"
+    },
+    {
+      "measure_id": "M7",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M10",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M12",
+      "district_id": null
+    }
+  ]
+}

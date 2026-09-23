@@ -1,0 +1,33 @@
+{
+  "contract_version": "2.0",
+  "dataset_version": "city-v1",
+  "rules_version": "five-directions-v1",
+  "selections": [
+    {
+      "measure_id": "M1",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M4",
+      "district_id": "saryarka"
+    },
+    {
+      "measure_id": "M7",
+      "district_id": "nura"
+    },
+    {
+      "measure_id": "M10",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M12",
+      "district_id": null
+    }
+  ],
+  "baseline_score": 52.55768,
+  "final_score": 55.0703475,
+  "status": "unavailable",
+  "analysis": null,
+  "unavailable_reason": "timeout",
+  "message": "AI-разбор не получен вовремя. Рассчитанные показатели остаются доступны."
+}

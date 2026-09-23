@@ -1,0 +1,18 @@
+{
+  "detail": [
+    {
+      "code": "INCOMPATIBLE_MEASURES",
+      "message": "M4 и M7 нельзя выбрать в одном районе.",
+      "path": [
+        "selections"
+      ],
+      "context": {
+        "measure_ids": [
+          "M4",
+          "M7"
+        ],
+        "district_id": "nura"
+      }
+    }
+  ]
+}

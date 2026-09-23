@@ -1,0 +1,16 @@
+{
+  "detail": [
+    {
+      "code": "BUDGET_EXCEEDED",
+      "message": "Стоимость решений 107 превышает бюджет 100 на 7 единиц.",
+      "path": [
+        "selections"
+      ],
+      "context": {
+        "budget": 100,
+        "total_cost": 107,
+        "over_by": 7
+      }
+    }
+  ]
+}

@@ -1,0 +1,342 @@
+{
+  "contract_version": "2.0",
+  "dataset_version": "city-v1",
+  "rules_version": "five-directions-v1",
+  "selections": [
+    {
+      "measure_id": "M1",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M4",
+      "district_id": "saryarka"
+    },
+    {
+      "measure_id": "M7",
+      "district_id": "nura"
+    },
+    {
+      "measure_id": "M10",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M12",
+      "district_id": null
+    }
+  ],
+  "baseline_score": 52.55768,
+  "final_score": 55.0703475,
+  "score_delta": 2.5126675,
+  "total_cost": 83,
+  "remaining_budget": 17,
+  "score_breakdown": {
+    "before": {
+      "city_average": 56.8624,
+      "weakest_district_id": "nura",
+      "weakest_district_score": 49.18,
+      "critical_count": 2
+    },
+    "after": {
+      "city_average": 58.364425,
+      "weakest_district_id": "nura",
+      "weakest_district_score": 50.7175,
+      "critical_count": 1
+    }
+  },
+  "districts": [
+    {
+      "id": "esil",
+      "name": "Есиль",
+      "population_share": 0.27,
+      "before": {
+        "T1": 45,
+        "T2": 62,
+        "E1": 68,
+        "E2": 72,
+        "S1": 48,
+        "S2": 55,
+        "B1": 78,
+        "B2": 60,
+        "C1": 75,
+        "C2": 70
+      },
+      "after": {
+        "T1": 49.5,
+        "T2": 68.75,
+        "E1": 68,
+        "E2": 72,
+        "S1": 48,
+        "S2": 55,
+        "B1": 90.5,
+        "B2": 61.75,
+        "C1": 75,
+        "C2": 74.375
+      },
+      "changes": {
+        "T1": 4.5,
+        "T2": 6.75,
+        "E1": 0,
+        "E2": 0,
+        "S1": 0,
+        "S2": 0,
+        "B1": 12.5,
+        "B2": 1.75,
+        "C1": 0,
+        "C2": 4.375
+      },
+      "score_before": 62.99,
+      "score_after": 65.835
+    },
+    {
+      "id": "almaty",
+      "name": "Алматы",
+      "population_share": 0.24,
+      "before": {
+        "T1": 40,
+        "T2": 75,
+        "E1": 50,
+        "E2": 55,
+        "S1": 60,
+        "S2": 65,
+        "B1": 62,
+        "B2": 52,
+        "C1": 50,
+        "C2": 60
+      },
+      "after": {
+        "T1": 40,
+        "T2": 75,
+        "E1": 50,
+        "E2": 55,
+        "S1": 60,
+        "S2": 65,
+        "B1": 62,
+        "B2": 52,
+        "C1": 50,
+        "C2": 64.375
+      },
+      "changes": {
+        "T1": 0,
+        "T2": 0,
+        "E1": 0,
+        "E2": 0,
+        "S1": 0,
+        "S2": 0,
+        "B1": 0,
+        "B2": 0,
+        "C1": 0,
+        "C2": 4.375
+      },
+      "score_before": 57.06,
+      "score_after": 57.4975
+    },
+    {
+      "id": "saryarka",
+      "name": "Сарыарка",
+      "population_share": 0.2,
+      "before": {
+        "T1": 50,
+        "T2": 70,
+        "E1": 42,
+        "E2": 40,
+        "S1": 62,
+        "S2": 68,
+        "B1": 58,
+        "B2": 55,
+        "C1": 45,
+        "C2": 55
+      },
+      "after": {
+        "T1": 50,
+        "T2": 70,
+        "E1": 51,
+        "E2": 42.25,
+        "S1": 62,
+        "S2": 68,
+        "B1": 59.5,
+        "B2": 55,
+        "C1": 45,
+        "C2": 59.375
+      },
+      "changes": {
+        "T1": 0,
+        "T2": 0,
+        "E1": 9,
+        "E2": 2.25,
+        "S1": 0,
+        "S2": 0,
+        "B1": 1.5,
+        "B2": 0,
+        "C1": 0,
+        "C2": 4.375
+      },
+      "score_before": 54.65,
+      "score_after": 56.28
+    },
+    {
+      "id": "baikonur",
+      "name": "Байконур",
+      "population_share": 0.13,
+      "before": {
+        "T1": 52,
+        "T2": 68,
+        "E1": 55,
+        "E2": 50,
+        "S1": 58,
+        "S2": 60,
+        "B1": 52,
+        "B2": 58,
+        "C1": 55,
+        "C2": 58
+      },
+      "after": {
+        "T1": 52,
+        "T2": 68,
+        "E1": 55,
+        "E2": 50,
+        "S1": 58,
+        "S2": 60,
+        "B1": 52,
+        "B2": 58,
+        "C1": 55,
+        "C2": 62.375
+      },
+      "changes": {
+        "T1": 0,
+        "T2": 0,
+        "E1": 0,
+        "E2": 0,
+        "S1": 0,
+        "S2": 0,
+        "B1": 0,
+        "B2": 0,
+        "C1": 0,
+        "C2": 4.375
+      },
+      "score_before": 56.63,
+      "score_after": 57.0675
+    },
+    {
+      "id": "nura",
+      "name": "Нура",
+      "population_share": 0.16,
+      "before": {
+        "T1": 55,
+        "T2": 40,
+        "E1": 45,
+        "E2": 65,
+        "S1": 38,
+        "S2": 35,
+        "B1": 55,
+        "B2": 50,
+        "C1": 60,
+        "C2": 50
+      },
+      "after": {
+        "T1": 55,
+        "T2": 40,
+        "E1": 45,
+        "E2": 65,
+        "S1": 48,
+        "S2": 35,
+        "B1": 55,
+        "B2": 50,
+        "C1": 60,
+        "C2": 54.375
+      },
+      "changes": {
+        "T1": 0,
+        "T2": 0,
+        "E1": 0,
+        "E2": 0,
+        "S1": 10,
+        "S2": 0,
+        "B1": 0,
+        "B2": 0,
+        "C1": 0,
+        "C2": 4.375
+      },
+      "score_before": 49.18,
+      "score_after": 50.7175
+    }
+  ],
+  "critical_before": [
+    {
+      "district_id": "nura",
+      "indicator": "S1",
+      "value": 38
+    },
+    {
+      "district_id": "nura",
+      "indicator": "S2",
+      "value": 35
+    }
+  ],
+  "critical_after": [
+    {
+      "district_id": "nura",
+      "indicator": "S2",
+      "value": 35
+    }
+  ],
+  "applied_effects": [
+    {
+      "measure_id": "M1",
+      "scope": "district",
+      "district_id": "esil",
+      "realized_effects": {
+        "T1": 4.5,
+        "T2": 6.75
+      }
+    },
+    {
+      "measure_id": "M4",
+      "scope": "district",
+      "district_id": "saryarka",
+      "realized_effects": {
+        "E1": 9,
+        "E2": 2.25,
+        "B1": 1.5
+      }
+    },
+    {
+      "measure_id": "M7",
+      "scope": "district",
+      "district_id": "nura",
+      "realized_effects": {
+        "S1": 10
+      }
+    },
+    {
+      "measure_id": "M10",
+      "scope": "district",
+      "district_id": "esil",
+      "realized_effects": {
+        "B1": 10.5,
+        "B2": 1.75
+      }
+    },
+    {
+      "measure_id": "M12",
+      "scope": "city",
+      "district_id": null,
+      "realized_effects": {
+        "C2": 4.375
+      }
+    }
+  ],
+  "applied_synergies": [
+    {
+      "measure_ids": [
+        "M10",
+        "M12"
+      ],
+      "district_id": "esil",
+      "effects": {
+        "B1": 2
+      }
+    }
+  ],
+  "explanation": "Расчёт выполнен по учебной модели. Объяснение AI запрашивается отдельно.",
+  "explanation_source": "rules"
+}
