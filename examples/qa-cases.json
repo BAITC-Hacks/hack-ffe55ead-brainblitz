@@ -1,0 +1,444 @@
+{
+  "contract_version": "2.0",
+  "dataset_version": "city-v1",
+  "rules_version": "five-directions-v1",
+  "source_commit": "617fc64",
+  "execution_status": "prepared_not_executed_against_backend",
+  "endpoint": "/api/simulate",
+  "cases": [
+    {
+      "id": "scenario_a",
+      "request_file": "scenario_a.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 200,
+        "expected_result": "scenario_a",
+        "total_cost": 83,
+        "final_score": 53.8250475
+      },
+      "purpose": "Первый demo-набор: два критических показателя."
+    },
+    {
+      "id": "scenario_b",
+      "request_file": "scenario_b.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 200,
+        "expected_result": "scenario_b",
+        "total_cost": 83,
+        "final_score": 55.0703475
+      },
+      "purpose": "Перенос только M7 в Нуру: один критический показатель."
+    },
+    {
+      "id": "budget_exactly_100",
+      "request_file": "budget_exactly_100.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 200,
+        "total_cost": 100,
+        "remaining_budget": 0
+      },
+      "purpose": "Ровно 100 допускается: M3+M6+M7+M10+M12. Исправленный тестовый набор; вариант M3+M4+M7+M10+M12 в spec.md стоит 95, см. QA-001."
+    },
+    {
+      "id": "negative_effect_m11",
+      "request_file": "negative_effect_m11.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 200,
+        "total_cost": 81,
+        "checks": {
+          "/districts/0/after/T1": 43.25,
+          "/districts/0/after/B2": 70.5,
+          "/applied_synergies": []
+        }
+      },
+      "purpose": "M11: T1 Есиля 45−2×7/8=43.25; транспортная мера размещена в другом районе."
+    },
+    {
+      "id": "city_effects",
+      "request_file": "city_effects.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 200,
+        "total_cost": 92,
+        "checks": {
+          "/districts/1/changes/T1": 3,
+          "/districts/1/changes/E1": 2.5,
+          "/districts/1/changes/E2": 1.5,
+          "/districts/1/changes/C1": 4.375,
+          "/districts/1/changes/C2": 1.75
+        }
+      },
+      "purpose": "Проверить городские M2/M6/M14 во всех районах."
+    },
+    {
+      "id": "scenario_b_reversed",
+      "request_file": "scenario_b_reversed.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 200,
+        "expected_result": "scenario_b",
+        "total_cost": 83,
+        "final_score": 55.0703475
+      },
+      "purpose": "Перестановка даёт канонически тот же SimulationResult, что B."
+    },
+    {
+      "id": "city_district_omitted",
+      "request_file": "city_district_omitted.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 200,
+        "expected_result": "scenario_b",
+        "total_cost": 83,
+        "final_score": 55.0703475
+      },
+      "purpose": "Отсутствие district_id у M12 эквивалентно null."
+    },
+    {
+      "id": "invalid_budget_107",
+      "request_file": "invalid_budget_107.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "BUDGET_EXCEEDED",
+        "error_path": [
+          "selections"
+        ],
+        "error_context": {
+          "budget": 100,
+          "total_cost": 107,
+          "over_by": 7
+        }
+      },
+      "purpose": "Все более ранние стадии допустимы; превышение на 7."
+    },
+    {
+      "id": "invalid_four_decisions",
+      "request_file": "invalid_four_decisions.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INVALID_SELECTION_COUNT",
+        "error_path": [
+          "selections"
+        ]
+      },
+      "purpose": "Четыре решения."
+    },
+    {
+      "id": "invalid_six_decisions",
+      "request_file": "invalid_six_decisions.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INVALID_SELECTION_COUNT",
+        "error_path": [
+          "selections"
+        ]
+      },
+      "purpose": "Шесть решений; количество проверяется до категорий."
+    },
+    {
+      "id": "invalid_duplicate_measure",
+      "request_file": "invalid_duplicate_measure.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "DUPLICATE_MEASURE",
+        "error_path": [
+          "selections",
+          4,
+          "measure_id"
+        ]
+      },
+      "purpose": "Повтор M1 с другим районом всё равно запрещён."
+    },
+    {
+      "id": "invalid_missing_direction",
+      "request_file": "invalid_missing_direction.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "CATEGORY_COVERAGE",
+        "error_path": [
+          "selections"
+        ],
+        "error_context": {
+          "missing_categories": [
+            "transport"
+          ],
+          "category_counts": {
+            "transport": 0,
+            "environment": 1,
+            "social": 2,
+            "safety": 1,
+            "services": 1
+          }
+        }
+      },
+      "purpose": "Пример исходного документа стоимостью 95 невалиден при строгих пяти направлениях."
+    },
+    {
+      "id": "invalid_unknown_measure",
+      "request_file": "invalid_unknown_measure.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "UNKNOWN_MEASURE",
+        "error_path": [
+          "selections",
+          0,
+          "measure_id"
+        ]
+      },
+      "purpose": "Неизвестное мероприятие."
+    },
+    {
+      "id": "invalid_measure_case",
+      "request_file": "invalid_measure_case.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "UNKNOWN_MEASURE",
+        "error_path": [
+          "selections",
+          0,
+          "measure_id"
+        ]
+      },
+      "purpose": "ID регистрозависим."
+    },
+    {
+      "id": "invalid_unknown_district",
+      "request_file": "invalid_unknown_district.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "UNKNOWN_DISTRICT",
+        "error_path": [
+          "selections",
+          0,
+          "district_id"
+        ]
+      },
+      "purpose": "Район вне каталога."
+    },
+    {
+      "id": "invalid_district_label",
+      "request_file": "invalid_district_label.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "UNKNOWN_DISTRICT",
+        "error_path": [
+          "selections",
+          0,
+          "district_id"
+        ]
+      },
+      "purpose": "Название не заменяет ID esil."
+    },
+    {
+      "id": "invalid_local_district_null",
+      "request_file": "invalid_local_district_null.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "DISTRICT_REQUIRED",
+        "error_path": [
+          "selections",
+          0,
+          "district_id"
+        ]
+      },
+      "purpose": "Для локальной M1 null запрещён."
+    },
+    {
+      "id": "invalid_local_district_missing",
+      "request_file": "invalid_local_district_missing.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "DISTRICT_REQUIRED",
+        "error_path": [
+          "selections",
+          0,
+          "district_id"
+        ]
+      },
+      "purpose": "Для локальной M1 район обязателен."
+    },
+    {
+      "id": "invalid_city_district",
+      "request_file": "invalid_city_district.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "DISTRICT_NOT_ALLOWED",
+        "error_path": [
+          "selections",
+          4,
+          "district_id"
+        ]
+      },
+      "purpose": "Для городской M12 район не задаётся."
+    },
+    {
+      "id": "invalid_park_school_conflict",
+      "request_file": "invalid_park_school_conflict.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INCOMPATIBLE_MEASURES",
+        "error_path": [
+          "selections"
+        ],
+        "error_context": {
+          "measure_ids": [
+            "M4",
+            "M7"
+          ],
+          "district_id": "nura"
+        }
+      },
+      "purpose": "M4 и M7 в Нуре; категории корректны, стоимость 83."
+    },
+    {
+      "id": "invalid_fuel_network_conflict",
+      "request_file": "invalid_fuel_network_conflict.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INCOMPATIBLE_MEASURES",
+        "error_path": [
+          "selections"
+        ],
+        "error_context": {
+          "measure_ids": [
+            "M5",
+            "M13"
+          ],
+          "district_id": "nura"
+        }
+      },
+      "purpose": "M5 и M13 в Нуре; категории корректны, стоимость 91."
+    },
+    {
+      "id": "invalid_m1_m3_category_first",
+      "request_file": "invalid_m1_m3_category_first.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "CATEGORY_COVERAGE",
+        "error_path": [
+          "selections"
+        ]
+      },
+      "purpose": "Категория проверяется до глобального конфликта и бюджета."
+    },
+    {
+      "id": "invalid_client_cost",
+      "request_file": "invalid_client_cost.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "UNEXPECTED_FIELD",
+        "error_path": [
+          "total_cost"
+        ]
+      },
+      "purpose": "Попытка передать готовую стоимость."
+    },
+    {
+      "id": "invalid_client_effects",
+      "request_file": "invalid_client_effects.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "UNEXPECTED_FIELD",
+        "error_path": [
+          "selections",
+          0,
+          "effects"
+        ]
+      },
+      "purpose": "Попытка переопределить эффект."
+    },
+    {
+      "id": "invalid_extra_decisions",
+      "request_file": "invalid_extra_decisions.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "UNEXPECTED_FIELD",
+        "error_path": [
+          "decisions"
+        ]
+      },
+      "purpose": "Дополнительное старое имя decisions запрещено."
+    },
+    {
+      "id": "invalid_measure_type",
+      "request_file": "invalid_measure_type.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INVALID_REQUEST",
+        "error_path": [
+          "selections",
+          0,
+          "measure_id"
+        ]
+      },
+      "purpose": "Числовой ID нельзя преобразовывать в строку."
+    },
+    {
+      "id": "invalid_district_type",
+      "request_file": "invalid_district_type.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INVALID_REQUEST",
+        "error_path": [
+          "selections",
+          0,
+          "district_id"
+        ]
+      },
+      "purpose": "Район должен быть строкой или null."
+    },
+    {
+      "id": "invalid_bare_array",
+      "request_file": "invalid_bare_array.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INVALID_REQUEST"
+      },
+      "purpose": "Требуется объект с selections, не bare array."
+    },
+    {
+      "id": "invalid_missing_selections",
+      "request_file": "invalid_missing_selections.json",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INVALID_REQUEST"
+      },
+      "purpose": "Обязательное поле отсутствует."
+    },
+    {
+      "id": "invalid_json",
+      "request_file": "invalid_json.txt",
+      "content_type": "application/json",
+      "expected": {
+        "http_status": 422,
+        "error_code": "INVALID_REQUEST"
+      },
+      "purpose": "Намеренно повреждённый JSON; отправлять как raw body, не через json=."
+    }
+  ]
+}
