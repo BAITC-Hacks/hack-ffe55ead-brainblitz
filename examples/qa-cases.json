@@ -2,7 +2,7 @@
   "contract_version": "2.0",
   "dataset_version": "city-v1",
   "rules_version": "five-directions-v1",
-  "source_commit": "617fc64",
+  "source_commit": "cc008d7",
   "execution_status": "prepared_not_executed_against_backend",
   "endpoint": "/api/simulate",
   "cases": [
