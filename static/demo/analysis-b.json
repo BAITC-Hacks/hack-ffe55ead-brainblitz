@@ -1,0 +1,78 @@
+{
+  "contract_version": "2.0",
+  "dataset_version": "city-v1",
+  "rules_version": "five-directions-v1",
+  "selections": [
+    {
+      "measure_id": "M1",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M4",
+      "district_id": "saryarka"
+    },
+    {
+      "measure_id": "M7",
+      "district_id": "nura"
+    },
+    {
+      "measure_id": "M10",
+      "district_id": "esil"
+    },
+    {
+      "measure_id": "M12",
+      "district_id": null
+    }
+  ],
+  "baseline_score": 52.55768,
+  "final_score": 55.0703475,
+  "status": "ok",
+  "analysis": {
+    "summary": {
+      "text": "Сценарий улучшает итоговую оценку и устраняет один критический провал в Нуре.",
+      "evidence_paths": [
+        "/baseline_score",
+        "/final_score",
+        "/score_breakdown/before/critical_count",
+        "/score_breakdown/after/critical_count"
+      ]
+    },
+    "strengths": [
+      {
+        "text": "Школа выводит обеспеченность Нуры выше критического порога.",
+        "evidence_paths": [
+          "/districts/4/before/S1",
+          "/districts/4/after/S1"
+        ]
+      },
+      {
+        "text": "Освещение и платформа обращений дают дополнительный эффект безопасности в Есиле.",
+        "evidence_paths": [
+          "/applied_synergies/0"
+        ]
+      }
+    ],
+    "risks": [
+      {
+        "text": "Доступность первичной медпомощи в Нуре остаётся критической.",
+        "evidence_paths": [
+          "/critical_after/0"
+        ]
+      }
+    ],
+    "tradeoff": {
+      "text": "Школа улучшает обеспеченность образованием, но не закрывает сохраняющийся дефицит медицинской помощи.",
+      "evidence_paths": [
+        "/districts/4/changes/S1",
+        "/districts/4/changes/S2",
+        "/critical_after/0"
+      ]
+    },
+    "reflection_question": "Как изменился бы результат, если вместо школы выбрать поликлинику в Нуре?",
+    "limitations": [
+      "Выводы относятся к учебной модели на синтетических данных."
+    ]
+  },
+  "unavailable_reason": null,
+  "message": ""
+}
