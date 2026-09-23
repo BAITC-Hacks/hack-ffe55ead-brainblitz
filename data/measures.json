@@ -1,0 +1,262 @@
+{
+  "dataset_version": "city-v1",
+  "rules_version": "five-directions-v1",
+  "budget": 100,
+  "horizon_quarters": 8,
+  "required_selection_count": 5,
+  "required_categories": [
+    "transport",
+    "environment",
+    "social",
+    "safety",
+    "services"
+  ],
+  "max_per_category": 1,
+  "categories": [
+    {
+      "id": "transport",
+      "name": "Транспорт"
+    },
+    {
+      "id": "environment",
+      "name": "Экология"
+    },
+    {
+      "id": "social",
+      "name": "Соцсфера"
+    },
+    {
+      "id": "safety",
+      "name": "Безопасность"
+    },
+    {
+      "id": "services",
+      "name": "Сервисы"
+    }
+  ],
+  "measures": [
+    {
+      "id": "M1",
+      "name": "Выделенные полосы для автобусов",
+      "category": "transport",
+      "scope": "district",
+      "cost": 18,
+      "lag_quarters": 2,
+      "effects": {
+        "T1": 6,
+        "T2": 9
+      }
+    },
+    {
+      "id": "M2",
+      "name": "Умные светофоры (адаптивное управление)",
+      "category": "transport",
+      "scope": "city",
+      "cost": 22,
+      "lag_quarters": 2,
+      "effects": {
+        "T1": 4,
+        "B2": 3
+      }
+    },
+    {
+      "id": "M3",
+      "name": "Линия ЛРТ / расширение",
+      "category": "transport",
+      "scope": "district",
+      "cost": 30,
+      "lag_quarters": 4,
+      "effects": {
+        "T1": 16,
+        "T2": 20,
+        "E2": 4
+      }
+    },
+    {
+      "id": "M4",
+      "name": "Парк / сквер",
+      "category": "environment",
+      "scope": "district",
+      "cost": 15,
+      "lag_quarters": 2,
+      "effects": {
+        "E1": 12,
+        "E2": 3,
+        "B1": 2
+      }
+    },
+    {
+      "id": "M5",
+      "name": "Перевод частного сектора на чистое топливо",
+      "category": "environment",
+      "scope": "district",
+      "cost": 25,
+      "lag_quarters": 3,
+      "effects": {
+        "E2": 14,
+        "C1": 4
+      }
+    },
+    {
+      "id": "M6",
+      "name": "Городская программа озеленения и ветрозащитных полос",
+      "category": "environment",
+      "scope": "city",
+      "cost": 20,
+      "lag_quarters": 4,
+      "effects": {
+        "E1": 5,
+        "E2": 3
+      }
+    },
+    {
+      "id": "M7",
+      "name": "Школа + детсад (модульное строительство)",
+      "category": "social",
+      "scope": "district",
+      "cost": 24,
+      "lag_quarters": 3,
+      "effects": {
+        "S1": 16
+      }
+    },
+    {
+      "id": "M8",
+      "name": "Центр семейного здоровья / поликлиника",
+      "category": "social",
+      "scope": "district",
+      "cost": 20,
+      "lag_quarters": 3,
+      "effects": {
+        "S2": 14
+      }
+    },
+    {
+      "id": "M9",
+      "name": "Дворовые спорт-хабы",
+      "category": "social",
+      "scope": "district",
+      "cost": 10,
+      "lag_quarters": 1,
+      "effects": {
+        "S1": 3,
+        "S2": 3,
+        "B1": 3
+      }
+    },
+    {
+      "id": "M10",
+      "name": "Освещение и камеры (расширение Safe City)",
+      "category": "safety",
+      "scope": "district",
+      "cost": 12,
+      "lag_quarters": 1,
+      "effects": {
+        "B1": 12,
+        "B2": 2
+      }
+    },
+    {
+      "id": "M11",
+      "name": "Безопасные переходы и школьные зоны",
+      "category": "safety",
+      "scope": "district",
+      "cost": 10,
+      "lag_quarters": 1,
+      "effects": {
+        "B2": 12,
+        "T1": -2
+      }
+    },
+    {
+      "id": "M12",
+      "name": "Единая цифровая платформа обращений",
+      "category": "services",
+      "scope": "city",
+      "cost": 14,
+      "lag_quarters": 1,
+      "effects": {
+        "C2": 5
+      }
+    },
+    {
+      "id": "M13",
+      "name": "Модернизация тепло- и водосетей",
+      "category": "services",
+      "scope": "district",
+      "cost": 28,
+      "lag_quarters": 4,
+      "effects": {
+        "C1": 18,
+        "E2": 2
+      }
+    },
+    {
+      "id": "M14",
+      "name": "Аварийные бригады ЖКХ + раннее оповещение",
+      "category": "services",
+      "scope": "city",
+      "cost": 16,
+      "lag_quarters": 1,
+      "effects": {
+        "C1": 5,
+        "C2": 2
+      }
+    }
+  ],
+  "conflicts": [
+    {
+      "measure_ids": [
+        "M1",
+        "M3"
+      ],
+      "condition": "any_district"
+    },
+    {
+      "measure_ids": [
+        "M4",
+        "M7"
+      ],
+      "condition": "same_district"
+    },
+    {
+      "measure_ids": [
+        "M5",
+        "M13"
+      ],
+      "condition": "same_district"
+    }
+  ],
+  "synergies": [
+    {
+      "measure_ids": [
+        "M1",
+        "M2"
+      ],
+      "target_measure_id": "M1",
+      "effects": {
+        "T1": 2
+      }
+    },
+    {
+      "measure_ids": [
+        "M10",
+        "M12"
+      ],
+      "target_measure_id": "M10",
+      "effects": {
+        "B1": 2
+      }
+    },
+    {
+      "measure_ids": [
+        "M5",
+        "M6"
+      ],
+      "target_measure_id": "M5",
+      "effects": {
+        "E2": 2
+      }
+    }
+  ]
+}
