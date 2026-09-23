@@ -1,0 +1,59 @@
+{
+  "districts": [
+    {
+      "id": "almaty",
+      "name": "Almaty",
+      "indicators": {
+        "mobility": 55,
+        "safety": 58,
+        "environment": 42,
+        "healthcare": 54,
+        "education": 57
+      }
+    },
+    {
+      "id": "baikonur",
+      "name": "Baikonur",
+      "indicators": {
+        "mobility": 48,
+        "safety": 50,
+        "environment": 40,
+        "healthcare": 51,
+        "education": 52
+      }
+    },
+    {
+      "id": "esil",
+      "name": "Esil",
+      "indicators": {
+        "mobility": 64,
+        "safety": 60,
+        "environment": 58,
+        "healthcare": 61,
+        "education": 63
+      }
+    },
+    {
+      "id": "nura",
+      "name": "Nura",
+      "indicators": {
+        "mobility": 57,
+        "safety": 55,
+        "environment": 52,
+        "healthcare": 56,
+        "education": 58
+      }
+    },
+    {
+      "id": "saryarka",
+      "name": "Saryarka",
+      "indicators": {
+        "mobility": 45,
+        "safety": 49,
+        "environment": 38,
+        "healthcare": 45,
+        "education": 46
+      }
+    }
+  ]
+}
